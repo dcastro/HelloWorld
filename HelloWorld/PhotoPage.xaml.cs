@@ -19,9 +19,9 @@ namespace HelloWorld
     /// <summary>
     /// A basic page that provides characteristics common to most applications.
     /// </summary>
-    public sealed partial class MainPage : HelloWorld.Common.LayoutAwarePage
+    public sealed partial class PhotoPage : HelloWorld.Common.LayoutAwarePage
     {
-        public MainPage()
+        public PhotoPage()
         {
             this.InitializeComponent();
         }
@@ -37,16 +37,6 @@ namespace HelloWorld
         /// session.  This will be null the first time a page is visited.</param>
         protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
-            if (pageState != null && pageState.ContainsKey("greetingOutputText"))
-            {
-                greetingOutput.Text = pageState["greetingOutputText"].ToString();
-            }
-
-            Windows.Storage.ApplicationDataContainer roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
-            if (roamingSettings.Values.ContainsKey("username"))
-            {
-                nameInput.Text = roamingSettings.Values["username"].ToString();
-            }
         }
 
         /// <summary>
@@ -57,26 +47,6 @@ namespace HelloWorld
         /// <param name="pageState">An empty dictionary to be populated with serializable state.</param>
         protected override void SaveState(Dictionary<String, Object> pageState)
         {
-            pageState["greetingOutputText"] = greetingOutput.Text;
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            greetingOutput.Text = "Hello, " + nameInput.Text + "!";
-        }
-
-        private void NameInput_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            Windows.Storage.ApplicationDataContainer roamingSettings = Windows.Storage.ApplicationData.Current.RoamingSettings;
-            roamingSettings.Values["username"] = nameInput.Text;
-        }
-
-        private void PhotoPageButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (this.Frame != null)
-            {
-                this.Frame.Navigate(typeof(PhotoPage));
-            }
         }
     }
 }
